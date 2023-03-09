@@ -7,6 +7,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 
 import { AppComponent } from './app.component';
 import { SharedModule } from '@shared/shared.module';
+import { I18nModule } from './i18n.module';
 
 function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -16,6 +17,7 @@ function tokenGetter() {
   declarations: [AppComponent],
   imports: [
     BrowserModule,
+    I18nModule,
     AppRoutingModule,
     BrowserAnimationsModule,
     SharedModule,
