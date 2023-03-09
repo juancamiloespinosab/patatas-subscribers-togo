@@ -3,7 +3,24 @@
 // The list of file replacements can be found in `angular.json`.
 
 export const environment = {
-  production: false
+  production: false,
+  invertebradoApi: {
+    baseUrl: 'https://lab.app.invertebrado.co/api',
+    paths: {
+      account: {
+        parent: '/account',
+        children: {
+          login: '/login',
+        },
+      },
+      subscribers: {
+        parent: '/subscribers',
+      },
+      countries: {
+        parent: '/countries',
+      },
+    },
+  },
 };
 
 /*
