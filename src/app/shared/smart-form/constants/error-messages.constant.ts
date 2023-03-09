@@ -1,4 +1,4 @@
-import { FORM_FIELD_VALIDATOR_TYPE } from '../enums/FormFieldValidatorsType';
+import { FORM_FIELD_VALIDATOR_TYPE } from '../enums';
 
 export const ERROR_MESSAGE: { [key: string]: string } = {
   [FORM_FIELD_VALIDATOR_TYPE.EMAIL]: 'smart-form-email-error-msg',

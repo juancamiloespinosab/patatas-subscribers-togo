@@ -1,44 +1,42 @@
-import { Component, Input, OnInit } from '@angular/core';
+import {
+  AfterViewInit,
+  Component,
+  EventEmitter,
+  Input,
+  OnInit,
+  Output,
+} from '@angular/core';
 import {
   FormControl,
   FormGroup,
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { FORM_FIELD_TYPE } from '@shared/smart-form/enums/FormFieldType.enum';
-import { FORM_FIELD_VALIDATOR_TYPE } from '@shared/smart-form/enums/FormFieldValidatorsType';
-import { FormFieldValidator } from '@shared/smart-form/interfaces/form-field-validator.interface';
-import { FormField } from '@shared/smart-form/interfaces/form-field.interface';
+import { FORM_FIELD_VALIDATOR_TYPE } from '@shared/smart-form/enums';
+import { FormConfig } from '@shared/smart-form/interfaces';
+import { FormFieldValidator } from '@shared/smart-form/interfaces';
+import { FormField } from '@shared/smart-form/interfaces';
 
 @Component({
   selector: 'app-smart-form',
   templateUrl: './smart-form.component.html',
   styleUrls: ['./smart-form.component.scss'],
 })
-export class SmartFormComponent implements OnInit {
-  formGroup!: FormGroup;
+export class SmartFormComponent implements OnInit, AfterViewInit {
+  @Input() fields!: FormField[];
+  @Input() config!: FormConfig;
+  @Output() form: EventEmitter<FormGroup> = new EventEmitter();
 
-  @Input() fields: FormField[] = [
-    {
-      name: 'usuario',
-      label: 'Usuario',
-      placeholder: 'Usuario',
-      type: FORM_FIELD_TYPE.INPUT,
-      validators: [
-        {
-          type: FORM_FIELD_VALIDATOR_TYPE.REQUIRED,
-        },
-        {
-          type: FORM_FIELD_VALIDATOR_TYPE.EMAIL,
-        },
-      ],
-    },
-  ];
+  formGroup!: FormGroup;
 
   constructor() {}
 
   ngOnInit(): void {
     this.formGroup = this.buildFormGroup(this.fields);
+  }
+
+  ngAfterViewInit() {
+    this.form.emit(this.formGroup);
   }
 
   buildFormGroup(fields: FormField[]): FormGroup {
@@ -78,6 +76,4 @@ export class SmartFormComponent implements OnInit {
   ): FormControl {
     return formGroup.get(formControlName) as FormControl;
   }
-
-
 }

@@ -1,8 +1,8 @@
 import { Component, Input, OnInit } from '@angular/core';
 import { FormControl } from '@angular/forms';
-import { ERROR_MESSAGE } from '@shared/smart-form/constants/error-messages.constant';
+import { ERROR_MESSAGE } from '@shared/smart-form/constants';
 import { FORM_FIELD_TYPE } from '@shared/smart-form/enums/FormFieldType.enum';
-import { FormField } from '@shared/smart-form/interfaces/form-field.interface';
+import { FormField } from '@shared/smart-form/interfaces';
 
 @Component({
   selector: 'app-dyn-field',
