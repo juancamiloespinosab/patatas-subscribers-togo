@@ -8,8 +8,12 @@ export class AuthService {
   constructor(private jwtHelperService: JwtHelperService) {}
 
   isAuthenticated() {
-    const accessToken = this.getAccessToken();
-    return !this.jwtHelperService.isTokenExpired(accessToken);
+    try {
+      const accessToken = this.getAccessToken();
+      return !this.jwtHelperService.isTokenExpired(accessToken);
+    } catch {
+      return false;
+    }
   }
 
   saveAccessToken(access_token: string) {
