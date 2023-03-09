@@ -1,0 +1,19 @@
+@use "src/assets/styles/variables" as vars;
+
+.logo {
+  display: flex;
+  gap: 10px;
+  align-items: center;
+  img {
+    height: 44px;
+    transform: translateY(3px);
+    @media (max-width: vars.$layout-breakpoint-small) {
+      height: 32px;
+    }
+  }
+  h1 {
+    @media (max-width: vars.$layout-breakpoint-small) {
+      display: none;
+    }
+  }
+}
