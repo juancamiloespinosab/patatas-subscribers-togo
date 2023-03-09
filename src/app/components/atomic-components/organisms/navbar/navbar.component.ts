@@ -1,5 +1,5 @@
 import { Component, OnInit } from '@angular/core';
-import { LogoComponent } from '@components/molecules/logo/logo.component';
+import { LogoComponent } from '@components/atomic-components';
 import { SharedModule } from '@shared/shared.module';
 
 @Component({

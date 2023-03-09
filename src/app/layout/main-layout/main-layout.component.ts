@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core';
-import { NavbarComponent } from '@components/organisms/navbar/navbar.component';
+import { NavbarComponent } from '@components/atomic-components';
+
 
 @Component({
   imports: [NavbarComponent],
