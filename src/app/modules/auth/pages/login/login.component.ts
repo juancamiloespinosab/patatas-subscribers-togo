@@ -29,6 +29,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   onClickLoginButton(): void {
     if (this.isInvalidForm(this.loginForm)) {
+      this.loginForm.markAllAsTouched();
       return;
     }
 
