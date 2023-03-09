@@ -1,3 +1,6 @@
 {
-    "hello": "Hola"
+  "hello": "Hola",
+  "smart-form-email-error-msg": "Por favor ingrese un correo valido",
+  "smart-form-pattern-error-msg": "Por favor no utilice caracteres especiales",
+  "smart-form-required-error-msg": "Este campo es requerido"
 }

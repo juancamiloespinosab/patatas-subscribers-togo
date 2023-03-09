@@ -1,0 +1,13 @@
+<form *ngIf="formGroup" [formGroup]="formGroup">
+  <ng-container *ngFor="let field of fields">
+    <ng-container
+      *ngIf="
+        getFormControlFromFormGroupByName(field.name, formGroup) as control
+      "
+    >
+      <app-dyn-field [field]="field" [control]="control"></app-dyn-field>
+    </ng-container>
+  </ng-container>
+</form>
+
+<!-- <app-input-field></app-input-field> -->

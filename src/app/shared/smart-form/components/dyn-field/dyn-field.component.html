@@ -1,0 +1,15 @@
+<ng-container [ngSwitch]="field.type">
+  <ng-container *ngSwitchCase="FORM_FIELD_TYPE.INPUT">
+    <mat-form-field appearance="fill">
+      <mat-label>{{ field.label }}</mat-label>
+      <input
+        matInput
+        [placeholder]="field.placeholder"
+        [formControl]="control"
+      />
+      <mat-error *ngIf="control.invalid && control.touched">{{
+        getErrorMessage(control) | translate
+      }}</mat-error>
+    </mat-form-field>
+  </ng-container>
+</ng-container>

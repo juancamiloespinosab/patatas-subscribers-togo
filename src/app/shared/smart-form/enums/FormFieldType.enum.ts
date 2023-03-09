@@ -1,0 +1,5 @@
+export enum FORM_FIELD_TYPE {
+  INPUT,
+  TEXTAREA,
+  SELECT,
+}
