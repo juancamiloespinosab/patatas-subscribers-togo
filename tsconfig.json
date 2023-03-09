@@ -23,7 +23,9 @@
       "@assets/*": ["src/assets/*"],
       "@core/*": ["src/app/core/*"],
       "@modules/*": ["src/app/modules/*"],
-      "@shared/*": ["src/app/shared/*"]
+      "@shared/*": ["src/app/shared/*"],
+      "@components/*": ["src/app/components/*"],
+      "@layout/*": ["src/app/layout/*"]
     }
   },
   "angularCompilerOptions": {
