@@ -1,0 +1,28 @@
+<button
+  mat-icon-button
+  [matMenuTriggerFor]="menu"
+  aria-label="Example icon-button with a menu"
+>
+  <mat-icon class="account-icon">{{ nav.iconName }}</mat-icon>
+</button>
+<mat-menu #menu="matMenu">
+  <ng-container *ngFor="let navOption of nav.options">
+    <ng-container [ngSwitch]="navOption.type">
+      <ng-container *ngSwitchCase="NAV_OPTION_TYPE.LINK">
+        <a mat-menu-item [routerLink]="[navOption.routerLink]">
+          <mat-icon>{{ navOption.iconName }}</mat-icon>
+          <span>{{ navOption.label }}</span>
+        </a>
+      </ng-container>
+      <ng-container *ngSwitchCase="NAV_OPTION_TYPE.BUTTON">
+        <button mat-menu-item>
+          <mat-icon>{{ navOption.iconName }}</mat-icon>
+          <span>{{ navOption.label }}</span>
+        </button>
+      </ng-container>
+      <ng-container *ngSwitchCase="NAV_OPTION_TYPE.HR">
+        <hr />
+      </ng-container>
+    </ng-container>
+  </ng-container>
+</mat-menu>

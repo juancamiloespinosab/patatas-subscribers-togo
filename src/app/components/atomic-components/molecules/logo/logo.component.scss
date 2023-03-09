@@ -13,7 +13,7 @@
   }
   h1 {
     @media (max-width: vars.$layout-breakpoint-small) {
-      display: none;
+      font-size: 18px;
     }
   }
 }
