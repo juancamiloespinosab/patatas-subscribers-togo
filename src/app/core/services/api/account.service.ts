@@ -12,7 +12,7 @@ export class AccountService {
 
   constructor(private httpClient: HttpClient) {}
 
-  Login(account: Account) {
+  login(account: Account) {
     const url = `${this.BASE_URL}${this.AUTH_API.parent}${this.AUTH_API.children.login}`;
     return this.httpClient.post<User>(url, account);
   }
