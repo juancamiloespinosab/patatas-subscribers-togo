@@ -1,8 +1,5 @@
-import {
-  FORM_FIELD_TYPE,
-  FORM_FIELD_VALIDATOR_TYPE,
-} from '@shared/smart-form/enums';
-import { FormField } from '@shared/smart-form/interfaces';
+import { FORM_FIELD_TYPE, FORM_FIELD_VALIDATOR_TYPE } from "@shared/modules/smart-form/enums";
+import { FormField } from "@shared/modules/smart-form/interfaces";
 
 export const LOGIN_FIELDS: FormField[] = [
   {

@@ -12,10 +12,10 @@ import {
   ValidatorFn,
   Validators,
 } from '@angular/forms';
-import { FORM_FIELD_VALIDATOR_TYPE } from '@shared/smart-form/enums';
-import { FormConfig } from '@shared/smart-form/interfaces';
-import { FormFieldValidator } from '@shared/smart-form/interfaces';
-import { FormField } from '@shared/smart-form/interfaces';
+import { FORM_FIELD_VALIDATOR_TYPE } from '@shared/modules/smart-form/enums';
+import { FormConfig } from '@shared/modules/smart-form/interfaces';
+import { FormFieldValidator } from '@shared/modules/smart-form/interfaces';
+import { FormField } from '@shared/modules/smart-form/interfaces';
 
 @Component({
   selector: 'app-smart-form',
