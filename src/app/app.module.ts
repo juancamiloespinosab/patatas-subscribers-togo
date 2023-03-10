@@ -8,6 +8,7 @@ import { JwtModule } from '@auth0/angular-jwt';
 import { AppComponent } from './app.component';
 import { SharedModule } from '@shared/shared.module';
 import { I18nModule } from './i18n.module';
+import { environment } from 'src/environments/environment';
 
 function tokenGetter() {
   return localStorage.getItem('access_token');
@@ -22,7 +23,10 @@ function tokenGetter() {
     BrowserAnimationsModule,
     SharedModule,
     JwtModule.forRoot({
-      config: { tokenGetter: tokenGetter, allowedDomains: ['localhost:3000'] },
+      config: {
+        tokenGetter: tokenGetter,
+        allowedDomains: [environment.invertebradoApi.domain],
+      },
     }),
   ],
   providers: [],
