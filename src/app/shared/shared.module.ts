@@ -2,10 +2,10 @@ import { NgModule } from '@angular/core';
 import { CommonModule } from '@angular/common';
 
 import { MATERIAL_MODULES } from './material.index';
-import { DialogModule } from './dialog/dialog.module';
-import { SmartTableModule } from './smart-table/smart-table.module';
-import { SmartFormModule } from './smart-form/smart-form.module';
-import { HiddenIfNotLoggedDirective } from '@core/directives/hidden-if-not-logged.directive';
+import { DialogModule } from './modules/dialog/dialog.module';
+import { SmartTableModule } from './modules/smart-table/smart-table.module';
+import { SmartFormModule } from './modules/smart-form/smart-form.module';
+import { HiddenIfNotLoggedDirective } from './directives/hidden-if-not-logged.directive';
 
 @NgModule({
   declarations: [HiddenIfNotLoggedDirective],
