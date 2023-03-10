@@ -8,20 +8,18 @@ import { LoginFormComponent } from './components/login-form/login-form.component
 import { SharedModule } from '@shared/shared.module';
 import { I18nModule } from 'src/app/i18n.module';
 import { LogoComponent } from '@components/atomic-components';
-
+import { VoidNavbarLayoutComponent } from '@layout/void-navbar-layout/void-navbar-layout.component';
 
 @NgModule({
-  declarations: [
-    LoginComponent,
-    LoginFormComponent
-  ],
+  declarations: [LoginComponent, LoginFormComponent],
   imports: [
     CommonModule,
     I18nModule,
     AuthRoutingModule,
     MainLayoutComponent,
+    VoidNavbarLayoutComponent,
     LogoComponent,
-    SharedModule
-  ]
+    SharedModule,
+  ],
 })
-export class AuthModule { }
+export class AuthModule {}

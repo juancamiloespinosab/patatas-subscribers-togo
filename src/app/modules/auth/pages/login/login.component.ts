@@ -1,6 +1,7 @@
 import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
+import { LOGO_TYPE } from '@components/enums';
 import { User } from '@core/models';
 import { AccountService } from '@core/services/api/account.service';
 import { AuthService } from '@core/services/app/auth.service';
@@ -14,6 +15,7 @@ import { LoginFormComponent } from '@modules/auth/components/login-form/login-fo
 export class LoginComponent implements OnInit, AfterViewInit {
   @ViewChild('loginForm') loginFormComponent!: LoginFormComponent;
   loginForm!: FormGroup;
+  logoType: LOGO_TYPE = LOGO_TYPE.MAIN
 
   constructor(
     private accountService: AccountService,

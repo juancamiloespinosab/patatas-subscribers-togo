@@ -1,9 +1,11 @@
-<app-main-layout>
+<app-void-navbar-layout>
   <section class="login-container">
-    <h2>{{ "login-welcome-txt" | translate }}</h2>
+    <div class="logo-wrapper">
+      <app-logo [type]="logoType"></app-logo>
+    </div>
     <app-login-form #loginForm></app-login-form>
     <button mat-raised-button color="primary" (click)="onClickLoginButton()">
       {{ "login-button-txt" | translate }}
     </button>
   </section>
-</app-main-layout>
+</app-void-navbar-layout>

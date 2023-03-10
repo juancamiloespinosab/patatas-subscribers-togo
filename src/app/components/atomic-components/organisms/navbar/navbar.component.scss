@@ -1,4 +1,17 @@
+@use "src/assets/styles/variables" as vars;
+
+.logo-wrapper {
+  height: 7vh;
+  @media (max-width: vars.$layout-breakpoint-small) {
+    height: 6vh;
+  }
+}
+
 .navbar {
-    display: flex;
-    justify-content: space-between;
+  display: flex;
+  justify-content: space-between;
+  height: 10vh;
+  @media (max-width: vars.$layout-breakpoint-small) {
+    height: 8vh;
+  }
 }
