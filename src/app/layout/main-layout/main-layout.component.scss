@@ -1,8 +1,13 @@
+@use "src/assets/styles/variables" as vars;
+
 .main {
     backdrop-filter: blur(10px);
     height: 100vh;
 }
 
 .content {
-    padding: 5vh 10vw;
+    padding: vars.$layout-padding;
+    @media (max-width: vars.$layout-breakpoint-small) {
+        padding: vars.$layout-padding-small;
+      }
 }

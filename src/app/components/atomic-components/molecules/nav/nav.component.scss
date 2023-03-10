@@ -1,3 +1,7 @@
 .account-icon {
-    transform: scale(2);
+  transform: scale(2);
+}
+
+::ng-deep .cdk-overlay-pane {
+  transform: translateY(10px);
 }

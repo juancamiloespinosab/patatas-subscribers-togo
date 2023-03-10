@@ -5,7 +5,7 @@
 >
   <mat-icon class="account-icon">{{ nav.iconName }}</mat-icon>
 </button>
-<mat-menu #menu="matMenu">
+<mat-menu #menu="matMenu" xPosition="before">
   <ng-container *ngFor="let navOption of nav.options">
     <ng-container [ngSwitch]="navOption.type">
       <ng-container *ngSwitchCase="NAV_OPTION_TYPE.LINK">

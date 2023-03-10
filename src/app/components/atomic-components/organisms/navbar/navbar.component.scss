@@ -11,7 +11,9 @@
   display: flex;
   justify-content: space-between;
   height: 10vh;
+  padding: vars.$layout-padding;
   @media (max-width: vars.$layout-breakpoint-small) {
     height: 8vh;
+    padding: vars.$layout-padding-small;
   }
 }
