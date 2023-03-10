@@ -7,8 +7,8 @@ import { environment } from 'src/environments/environment';
   providedIn: 'root',
 })
 export class AccountService {
-  BASE_URL = environment.invertebradoApi.baseUrl;
-  AUTH_API = environment.invertebradoApi.paths.account;
+  private BASE_URL = environment.invertebradoApi.baseUrl;
+  private AUTH_API = environment.invertebradoApi.paths.account;
 
   constructor(private httpClient: HttpClient) {}
 

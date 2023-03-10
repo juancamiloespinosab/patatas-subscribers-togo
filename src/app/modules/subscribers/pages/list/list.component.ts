@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
 import { Subscriber } from '@core/models';
+import { GenericQueryParamsRequest } from '@core/services/api/interfaces/request/generic-query-params-request.interface';
+import { SubscribersService } from '@core/services/api/subscribers.service';
 import { TableConfig } from '@shared/modules/smart-table/interfaces';
 import { SmartTableService } from '@shared/modules/smart-table/services/smart-table.service';
 
@@ -58,13 +60,20 @@ export class ListComponent implements OnInit {
     showPagination: false,
     showSearch: false,
   };
-  
+
   constructor(
     private activatedRoute: ActivatedRoute,
-    private a: SmartTableService
+    private subscribersService: SubscribersService
   ) {}
 
   ngOnInit(): void {
-    console.log(this.activatedRoute.snapshot.data);
+    const queryParams: GenericQueryParamsRequest = {
+      criteria: 'linda@gmail.com',
+      count: '5',
+      page: '1',
+    };
+    this.subscribersService
+      .getSubscribers(queryParams)
+      .subscribe((data) => console.log(8, data));
   }
 }
