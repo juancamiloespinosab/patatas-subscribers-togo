@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { PaginatorConfig } from '../../interfaces';
 import { SmartTableService } from '../../services/smart-table.service';
 
 @Component({
@@ -7,6 +8,7 @@ import { SmartTableService } from '../../services/smart-table.service';
   styleUrls: ['./paginator.component.scss']
 })
 export class PaginatorComponent implements OnInit {
+  @Input() config!: PaginatorConfig;
 
   constructor(private smartTableService: SmartTableService) { }
 

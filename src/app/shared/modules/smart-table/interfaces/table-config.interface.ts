@@ -1,7 +1,9 @@
-import { TableColumn } from "./table-column.interface";
+import { PaginatorConfig } from './paginator-config.interface';
+import { SearchConfig } from './search-config.interface';
+import { TableColumn } from './table-column.interface';
 
 export interface TableConfig {
-    columns: TableColumn[];
-    showSearch: boolean;
-    showPagination: boolean;
+  columns: TableColumn[];
+  paginator: PaginatorConfig;
+  search: SearchConfig;
 }

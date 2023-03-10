@@ -1,10 +1,9 @@
 import { Component, OnInit } from '@angular/core';
-import { ActivatedRoute } from '@angular/router';
 import { Subscriber } from '@core/models';
-import { GenericQueryParamsRequest } from '@core/services/api/interfaces/request/generic-query-params-request.interface';
 import { SubscribersService } from '@core/services/api/subscribers.service';
-import { TableConfig } from '@shared/modules/smart-table/interfaces';
-import { SmartTableService } from '@shared/modules/smart-table/services/smart-table.service';
+import {
+  TableConfig,
+} from '@shared/modules/smart-table/interfaces';
 
 @Component({
   selector: 'app-list',
@@ -32,48 +31,53 @@ export class ListComponent implements OnInit {
   config: TableConfig = {
     columns: [
       {
-        headerLabel: 'Id',
+        headerLabel: 'smart-table-subscriber-header-label-id',
         def: 'id',
         dataKeyName: 'Id',
       },
       {
-        headerLabel: 'Name',
+        headerLabel: 'smart-table-subscriber-header-label-name',
         def: 'name',
         dataKeyName: 'Name',
       },
       {
-        headerLabel: 'Email',
+        headerLabel: 'smart-table-subscriber-header-label-email',
         def: 'email',
         dataKeyName: 'Email',
       },
       {
-        headerLabel: 'Country',
+        headerLabel: 'smart-table-subscriber-header-label-country-name',
         def: 'country',
         dataKeyName: 'CountryName',
       },
       {
-        headerLabel: 'Subscription State',
+        headerLabel: 'smart-table-subscriber-header-label-subscription-state-description',
         def: 'subscriptionStateDescription',
         dataKeyName: 'SubscriptionStateDescription',
       },
     ],
-    showPagination: false,
-    showSearch: false,
+    paginator: {
+      show: false,
+      length: 0,
+      pageIndex: 1,
+      pageSize: 10,
+      pageSizeOptions: [5, 10, 50],
+    },
+    search: {
+      show: true,
+      label: 'Buscar'
+    },
   };
 
-  constructor(
-    private activatedRoute: ActivatedRoute,
-    private subscribersService: SubscribersService
-  ) {}
+  constructor(private subscribersService: SubscribersService) {}
 
   ngOnInit(): void {
-    const queryParams: GenericQueryParamsRequest = {
-      criteria: 'linda@gmail.com',
-      count: '5',
-      page: '1',
-    };
+    // this.getSubscribers();
+  }
+
+  getSubscribers() {
     this.subscribersService
-      .getSubscribers(queryParams)
-      .subscribe((data) => console.log(8, data));
+      .getSubscribers()
+      .subscribe((data) => (this.data = data.Data));
   }
 }

@@ -9,6 +9,7 @@ import { MatInputModule } from '@angular/material/input';
 import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { SearchComponent } from './components/search/search.component';
+import { I18nModule } from 'src/app/i18n.module';
 
 @NgModule({
   declarations: [SmartTableComponent, PaginatorComponent, SearchComponent],
@@ -16,6 +17,7 @@ import { SearchComponent } from './components/search/search.component';
     CommonModule,
     MatTableModule,
     MatFormFieldModule,
+    I18nModule,
     MatInputModule,
     MatPaginatorModule,
   ],

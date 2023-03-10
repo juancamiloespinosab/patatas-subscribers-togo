@@ -1,4 +1,5 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit } from '@angular/core';
+import { SearchConfig } from '../../interfaces';
 import { SmartTableService } from '../../services/smart-table.service';
 
 @Component({
@@ -7,6 +8,8 @@ import { SmartTableService } from '../../services/smart-table.service';
   styleUrls: ['./search.component.scss'],
 })
 export class SearchComponent implements OnInit {
+  @Input() config!: SearchConfig;
+
   constructor(private smartTableService: SmartTableService) {}
 
   ngOnInit(): void {}
