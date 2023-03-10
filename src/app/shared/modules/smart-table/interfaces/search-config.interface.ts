@@ -1,5 +1,4 @@
 export interface SearchConfig {
-  show: boolean;
-  label?: string;
-  placeholder?: string;
+  label: string;
+  placeholder: string;
 }

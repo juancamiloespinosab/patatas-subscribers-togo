@@ -10,6 +10,8 @@ import { MatPaginatorModule } from '@angular/material/paginator';
 import { PaginatorComponent } from './components/paginator/paginator.component';
 import { SearchComponent } from './components/search/search.component';
 import { I18nModule } from 'src/app/i18n.module';
+import { MatIconModule } from '@angular/material/icon';
+import { MatButtonModule } from '@angular/material/button';
 
 @NgModule({
   declarations: [SmartTableComponent, PaginatorComponent, SearchComponent],
@@ -19,6 +21,8 @@ import { I18nModule } from 'src/app/i18n.module';
     MatFormFieldModule,
     I18nModule,
     MatInputModule,
+    MatIconModule,
+    MatButtonModule,
     MatPaginatorModule,
   ],
   exports: [SmartTableComponent],

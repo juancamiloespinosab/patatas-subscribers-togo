@@ -1,32 +1,23 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, OnDestroy, OnInit } from '@angular/core';
 import { Subscriber } from '@core/models';
+import { DEFAULT_QUERY_PARAMS_REQUEST } from '@core/services/api/constants';
+import { GenericQueryParamsRequest } from '@core/services/api/interfaces/request/generic-query-params-request.interface';
 import { SubscribersService } from '@core/services/api/subscribers.service';
+import { ACTION_TYPE } from '@shared/modules/smart-table/enums';
 import {
+  TableAction,
   TableConfig,
 } from '@shared/modules/smart-table/interfaces';
+import { SmartTableService } from '@shared/modules/smart-table/services/smart-table.service';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-list',
   templateUrl: './list.component.html',
   styleUrls: ['./list.component.scss'],
 })
-export class ListComponent implements OnInit {
-  data: Partial<Subscriber>[] = [
-    {
-      Id: 1234,
-      Name: '1234',
-      Email: 'Juan',
-      CountryName: 'Colombia',
-      SubscriptionStateDescription: 'Pendiente',
-    },
-    {
-      Id: 5698,
-      Name: '1234',
-      Email: 'Juan',
-      CountryName: 'Colombia',
-      SubscriptionStateDescription: 'Pendiente',
-    },
-  ];
+export class ListComponent implements OnInit, OnDestroy {
+  data!: Partial<Subscriber>[];
 
   config: TableConfig = {
     columns: [
@@ -51,33 +42,80 @@ export class ListComponent implements OnInit {
         dataKeyName: 'CountryName',
       },
       {
-        headerLabel: 'smart-table-subscriber-header-label-subscription-state-description',
+        headerLabel:
+          'smart-table-subscriber-header-label-subscription-state-description',
         def: 'subscriptionStateDescription',
         dataKeyName: 'SubscriptionStateDescription',
       },
     ],
+    actions: [
+      {
+        type: ACTION_TYPE.EDIT,
+      },
+      {
+        type: ACTION_TYPE.REMOVE,
+      },
+    ],
     paginator: {
-      show: false,
-      length: 0,
+      length: 5,
       pageIndex: 1,
-      pageSize: 10,
+      pageSize: 5,
       pageSizeOptions: [5, 10, 50],
-    },
-    search: {
-      show: true,
-      label: 'Buscar'
     },
   };
 
-  constructor(private subscribersService: SubscribersService) {}
+  querySubscription!: Subscription;
+  actionsSubscription!: Subscription;
+
+  constructor(
+    private subscribersService: SubscribersService,
+    private smartTableService: SmartTableService
+  ) {}
 
   ngOnInit(): void {
-    // this.getSubscribers();
+    this.getSubscribers();
+    this.initQuerySubscription();
+    this.initActionsSubscription();
   }
 
-  getSubscribers() {
-    this.subscribersService
-      .getSubscribers()
-      .subscribe((data) => (this.data = data.Data));
+  initQuerySubscription() {
+    this.querySubscription = this.smartTableService.query$.subscribe(
+      (newQuery: GenericQueryParamsRequest) => {
+        this.getSubscribers(newQuery);
+      }
+    );
+  }
+
+  initActionsSubscription() {
+    this.actionsSubscription = this.smartTableService.actions$.subscribe(
+      (action: TableAction) => {
+        this.handlerAction(action);
+      }
+    );
+  }
+
+  getSubscribers(
+    query: GenericQueryParamsRequest = DEFAULT_QUERY_PARAMS_REQUEST
+  ) {
+    this.subscribersService.getSubscribers(query).subscribe((data) => {
+      this.data = data.Data;
+      if (this.config.paginator) {
+        this.config.paginator.length = data.Count;
+      }
+    });
+  }
+
+  handlerAction(action: TableAction) {
+    switch (action.type) {
+      case ACTION_TYPE.EDIT:
+        break;
+      case ACTION_TYPE.REMOVE:
+        break;
+    }
+  }
+
+  ngOnDestroy(): void {
+    this.actionsSubscription.unsubscribe();
+    this.querySubscription.unsubscribe();
   }
 }

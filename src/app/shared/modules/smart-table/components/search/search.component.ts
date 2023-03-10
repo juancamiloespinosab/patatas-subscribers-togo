@@ -15,7 +15,10 @@ export class SearchComponent implements OnInit {
   ngOnInit(): void {}
 
   onSearch(event: Event) {
-    const filterValue = (event.target as HTMLInputElement).value;
-    filterValue.trim().toLowerCase();
+    let searchValue = (event.target as HTMLInputElement).value;
+    searchValue = searchValue.trim().toLowerCase();
+
+    this.smartTableService.setSearchValue(searchValue);
+    this.smartTableService.emitQuery();
   }
 }

@@ -1,11 +1,15 @@
 import { Component, Input } from '@angular/core';
 import { MatTableDataSource } from '@angular/material/table';
+import { ACTION_ICON } from '../../constants';
+import { ACTION_TYPE } from '../../enums';
 import {
   PaginatorConfig,
   SearchConfig,
+  TableAction,
   TableColumn,
   TableConfig,
 } from '../../interfaces';
+import { SmartTableService } from '../../services/smart-table.service';
 
 @Component({
   selector: 'app-smart-table',
@@ -15,9 +19,10 @@ import {
 export class SmartTableComponent {
   displayedColumns!: string[];
   columns!: TableColumn[];
+  actions!: TableAction[];
   dataSource!: MatTableDataSource<any>;
-  paginatorConfig: PaginatorConfig = { show: false };
-  searchConfig: SearchConfig = { show: false };
+  paginatorConfig!: PaginatorConfig;
+  searchConfig!: SearchConfig;
 
   @Input() set data(data: Array<any>) {
     this.dataSource = new MatTableDataSource(data);
@@ -27,14 +32,25 @@ export class SmartTableComponent {
     this.columns = config.columns;
     this.displayedColumns = this.columns.map((column) => column.def);
 
-    if (config.paginator.show) {
+    if (config.actions) {
+      this.actions = config.actions;
+      this.displayedColumns.push('actions');
+    }
+
+    if (config.paginator) {
       this.paginatorConfig = config.paginator;
     }
 
-    if (config.search.show) {
+    if (config.search) {
       this.searchConfig = config.search;
     }
   }
 
-  constructor() {}
+  ACTION_ICON = ACTION_ICON;
+
+  constructor(private smartTableService: SmartTableService) {}
+
+  onActionClick(type: ACTION_TYPE, data: any) {
+    this.smartTableService.emitAction({ type, data });
+  }
 }
