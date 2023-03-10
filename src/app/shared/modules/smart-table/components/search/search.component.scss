@@ -1,0 +1,12 @@
+.search {
+    top: 0;
+    position: sticky;
+    width: 100%;
+    input, mat-label {
+        padding: 10px;
+    }
+}
+
+::ng-deep .mat-form-field-appearance-fill .mat-form-field-flex {
+    background-color: #F5F5F5;    
+}
