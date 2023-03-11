@@ -8,7 +8,7 @@ export interface Subscriber {
   EndpointsCount: number;
   Email: string;
   JobTitle: string;
-  PhoneNumber: string;
+  PhoneNumber: string | number;
   PhoneCode: string;
   PhoneCodeAndNumber: string;
   LastActivityUtc?: any;

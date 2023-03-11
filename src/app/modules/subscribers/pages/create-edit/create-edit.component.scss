@@ -1,0 +1,15 @@
+.create-edit-container {
+  display: flex;
+  justify-content: center;
+}
+
+.create-edit-wrapper {
+  display: flex;
+  flex-direction: column;
+  width: 40%;
+  gap: 10px;
+}
+
+.create-edit-button {
+  width: 100%;
+}

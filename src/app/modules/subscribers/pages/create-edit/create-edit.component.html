@@ -1,1 +1,20 @@
-<p>create-edit works!</p>
+<app-main-layout>
+  <section class="create-edit-container">
+    <div class="create-edit-wrapper">
+      <app-create-edit-form #createEditForm></app-create-edit-form>
+      <button
+        class="create-edit-button"
+        mat-raised-button
+        color="primary"
+        (click)="onClickcreateEditButton()"
+      >
+        {{
+          (editMode
+            ? "create-edit-button-save-txt"
+            : "create-edit-button-create-txt"
+          ) | translate
+        }}
+      </button>
+    </div>
+  </section>
+</app-main-layout>

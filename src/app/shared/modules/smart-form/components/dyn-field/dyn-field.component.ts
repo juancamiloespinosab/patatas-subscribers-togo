@@ -10,15 +10,12 @@ import { FormField } from '@shared/modules/smart-form/interfaces';
   styleUrls: ['./dyn-field.component.scss'],
 })
 export class DynFieldComponent implements OnInit {
-  
   @Input() field!: FormField;
   @Input() control!: FormControl;
 
   FORM_FIELD_TYPE = FORM_FIELD_TYPE;
 
-  constructor() {
-
-  }
+  constructor() {}
 
   ngOnInit(): void {}
 

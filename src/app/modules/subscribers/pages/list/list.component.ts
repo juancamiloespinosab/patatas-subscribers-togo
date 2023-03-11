@@ -1,4 +1,5 @@
 import { Component, OnDestroy, OnInit } from '@angular/core';
+import { Router } from '@angular/router';
 import { Subscriber } from '@core/models';
 import { DEFAULT_QUERY_PARAMS_REQUEST } from '@core/services/api/constants';
 import { GenericQueryParamsRequest } from '@core/services/api/interfaces/request/generic-query-params-request.interface';
@@ -69,7 +70,8 @@ export class ListComponent implements OnInit, OnDestroy {
 
   constructor(
     private subscribersService: SubscribersService,
-    private smartTableService: SmartTableService
+    private smartTableService: SmartTableService,
+    private router: Router
   ) {}
 
   ngOnInit(): void {
@@ -108,6 +110,7 @@ export class ListComponent implements OnInit, OnDestroy {
   handlerAction(action: TableAction) {
     switch (action.type) {
       case ACTION_TYPE.EDIT:
+        this.router.navigate(['/subscribers/edit/' + action.data.Id]);
         break;
       case ACTION_TYPE.REMOVE:
         break;
