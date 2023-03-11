@@ -5,12 +5,15 @@ import { DEFAULT_QUERY_PARAMS_REQUEST } from '@core/services/api/constants';
 import { GenericQueryParamsRequest } from '@core/services/api/interfaces/request/generic-query-params-request.interface';
 import { SubscribersService } from '@core/services/api/subscribers.service';
 import { ACTION_TYPE } from '@shared/modules/smart-table/enums';
+import { DialogService } from '@shared/modules/dialog/services/dialog.service';
 import {
   TableAction,
   TableConfig,
 } from '@shared/modules/smart-table/interfaces';
 import { SmartTableService } from '@shared/modules/smart-table/services/smart-table.service';
 import { Subscription } from 'rxjs';
+import { ConfirmDialogComponent } from '@shared/modules/dialog/components/confirm-dialog/confirm-dialog.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-list',
@@ -67,11 +70,14 @@ export class ListComponent implements OnInit, OnDestroy {
 
   querySubscription!: Subscription;
   actionsSubscription!: Subscription;
+  dialogRefSubscription!: Subscription;
 
   constructor(
     private subscribersService: SubscribersService,
     private smartTableService: SmartTableService,
-    private router: Router
+    private dialogService: DialogService,
+    private router: Router,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -107,18 +113,49 @@ export class ListComponent implements OnInit, OnDestroy {
     });
   }
 
+  deleteSubscriber(
+    subscriberId: string,
+    subscribersService: SubscribersService
+  ): void {
+    subscribersService.deleteSubscriber(subscriberId).subscribe({
+      next: (res) => this.getSubscribers(),
+      error: (error) => console.log(error),
+    });
+  }
+
   handlerAction(action: TableAction) {
     switch (action.type) {
       case ACTION_TYPE.EDIT:
         this.router.navigate(['/subscribers/edit/' + action.data.Id]);
         break;
       case ACTION_TYPE.REMOVE:
+        this.openConfirmationDialog(action);
         break;
     }
   }
 
+  openConfirmationDialog(action: TableAction) {
+    const dialogRef = this.dialogService.openDialog(ConfirmDialogComponent, {
+      width: '250px',
+      data: {
+        title: this.translateService.instant(
+          'list-subscribers-confirm-dialog-title'
+        ),
+        message: `¿${this.translateService.instant(
+          'list-subscribers-confirm-dialog-message'
+        )}: ${action.data.Name}?`,
+      },
+    });
+    this.dialogRefSubscription = dialogRef.subscribe((res) => {
+      if (res === 'Confirm') {
+        this.deleteSubscriber(action.data.Id, this.subscribersService);
+      }
+    });
+  }
+
   ngOnDestroy(): void {
-    this.actionsSubscription.unsubscribe();
-    this.querySubscription.unsubscribe();
+    this.actionsSubscription?.unsubscribe();
+    this.querySubscription?.unsubscribe();
+    this.dialogRefSubscription?.unsubscribe();
   }
 }

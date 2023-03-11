@@ -33,8 +33,8 @@ export class SubscribersService {
     return this.httpClient.post(url, { Subscribers: subscribers });
   }
 
-  deleteSubscriber(subscriber: Subscriber) {
-    const url = `${this.BASE_URL}${this.AUTH_API.parent}/${subscriber.Id}`;
+  deleteSubscriber(subscriberId: string) {
+    const url = `${this.BASE_URL}${this.AUTH_API.parent}/${subscriberId}`;
     return this.httpClient.delete(url);
   }
 
