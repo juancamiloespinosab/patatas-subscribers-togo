@@ -1,3 +1,5 @@
+@use "src/assets/styles/variables" as vars;
+
 .create-edit-container {
   display: flex;
   justify-content: center;
@@ -8,8 +10,20 @@
   flex-direction: column;
   width: 40%;
   gap: 10px;
+  @media (max-width: vars.$layout-breakpoint-small) {
+    width: 100%;
+  }
 }
 
 .create-edit-button {
   width: 100%;
+}
+
+.title {
+  display: flex;
+  gap: 5px;
+  a {
+    display: flex;
+    align-items: center;
+  }
 }

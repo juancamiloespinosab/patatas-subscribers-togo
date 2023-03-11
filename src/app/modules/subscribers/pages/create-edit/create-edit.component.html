@@ -1,6 +1,16 @@
 <app-main-layout>
   <section class="create-edit-container">
     <div class="create-edit-wrapper">
+      <h2 class="title">
+        <a [routerLink]="['/subscribers']"><mat-icon> arrow_back </mat-icon></a>
+        {{
+          (editMode
+            ? "create-edit-title-edit-txt"
+            : "create-edit-title-create-txt"
+          ) | translate
+        }}
+        {{ "create-edit-title-subscriber-txt" | translate }}
+      </h2>
       <app-create-edit-form #createEditForm></app-create-edit-form>
       <button
         class="create-edit-button"
