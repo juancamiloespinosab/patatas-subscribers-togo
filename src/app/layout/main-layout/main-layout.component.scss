@@ -1,13 +1,19 @@
 @use "src/assets/styles/variables" as vars;
 
 .main {
-    backdrop-filter: blur(10px);
-    height: 100vh;
+  backdrop-filter: blur(10px);
+  height: 100vh;
+}
+
+.header {
+  position: sticky;
+  top: 0;
+  z-index: 100;
 }
 
 .content {
-    padding: vars.$layout-padding;
-    @media (max-width: vars.$layout-breakpoint-small) {
-        padding: vars.$layout-padding-small;
-      }
+  padding: vars.$layout-padding;
+  @media (max-width: vars.$layout-breakpoint-small) {
+    padding: vars.$layout-padding-small;
+  }
 }
