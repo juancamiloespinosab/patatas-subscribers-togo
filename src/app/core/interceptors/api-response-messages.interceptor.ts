@@ -21,8 +21,12 @@ export class ApiResponseMessagesInterceptor implements HttpInterceptor {
       tap({
         next: (event) => {},
         error: (error) => {
+          console.log(error);
+
           this.snackBarService.openSnackBar(
-            `${error.status} | ${error.error?.Message ?? 'Error'}`
+            `${error.status} | ${error.error?.Message ?? ''} ${
+              error.error?.error ?? ''
+            }`
           );
         },
       })
