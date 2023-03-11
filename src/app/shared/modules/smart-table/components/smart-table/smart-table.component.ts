@@ -1,37 +1,56 @@
-import { Component, OnInit } from '@angular/core';
-
-export interface PeriodicElement {
-  name: string;
-  position: number;
-  weight: number;
-  symbol: string;
-}
-
-const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
-  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
-  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
-  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
-  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
-  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
-  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
-  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
-  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
-  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
-];
+import { Component, Input } from '@angular/core';
+import { MatTableDataSource } from '@angular/material/table';
+import { ACTION_ICON } from '../../constants';
+import { ACTION_TYPE } from '../../enums';
+import {
+  PaginatorConfig,
+  SearchConfig,
+  TableAction,
+  TableColumn,
+  TableConfig,
+} from '../../interfaces';
+import { SmartTableService } from '../../services/smart-table.service';
 
 @Component({
   selector: 'app-smart-table',
   templateUrl: './smart-table.component.html',
-  styleUrls: ['./smart-table.component.scss']
+  styleUrls: ['./smart-table.component.scss'],
 })
-export class SmartTableComponent implements OnInit {
-  displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = ELEMENT_DATA;
+export class SmartTableComponent {
+  displayedColumns!: string[];
+  columns!: TableColumn[];
+  actions!: TableAction[];
+  dataSource!: MatTableDataSource<any>;
+  paginatorConfig!: PaginatorConfig;
+  searchConfig!: SearchConfig;
 
-  constructor() { }
-
-  ngOnInit(): void {
+  @Input() set data(data: Array<any>) {
+    this.dataSource = new MatTableDataSource(data);
   }
 
+  @Input() set config(config: TableConfig) {
+    this.columns = config.columns;
+    this.displayedColumns = this.columns.map((column) => column.def);
+
+    if (config.actions) {
+      this.actions = config.actions;
+      this.displayedColumns.push('actions');
+    }
+
+    if (config.paginator) {
+      this.paginatorConfig = config.paginator;
+    }
+
+    if (config.search) {
+      this.searchConfig = config.search;
+    }
+  }
+
+  ACTION_ICON = ACTION_ICON;
+
+  constructor(private smartTableService: SmartTableService) {}
+
+  onActionClick(type: ACTION_TYPE, data: any) {
+    this.smartTableService.emitAction({ type, data });
+  }
 }
