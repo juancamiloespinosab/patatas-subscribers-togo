@@ -4,7 +4,12 @@ table {
 
 td,
 th {
-  width: 10%;
+  width: 20%;
+  padding: 10px !important;
+}
+
+.table-wrapper {
+  overflow-x: scroll;
 }
 
 .actions {
