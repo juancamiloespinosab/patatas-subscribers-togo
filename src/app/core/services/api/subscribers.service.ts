@@ -23,14 +23,14 @@ export class SubscribersService {
     return this.httpClient.get<GenericResponse<Subscriber>>(url, { params });
   }
 
-  getSubscriberById(subscriber: Subscriber) {
-    const url = `${this.BASE_URL}${this.AUTH_API.parent}/${subscriber.Id}`;
+  getSubscriberById(subscriberId: string) {
+    const url = `${this.BASE_URL}${this.AUTH_API.parent}/${subscriberId}`;
     return this.httpClient.get<Subscriber>(url);
   }
 
-  createSubscriber(subscriber: Subscriber) {
+  createSubscriber(subscribers: Subscriber[]) {
     const url = `${this.BASE_URL}${this.AUTH_API.parent}`;
-    return this.httpClient.post(url, subscriber);
+    return this.httpClient.post(url, { Subscribers: subscribers });
   }
 
   deleteSubscriber(subscriber: Subscriber) {

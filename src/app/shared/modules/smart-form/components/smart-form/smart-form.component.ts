@@ -64,6 +64,9 @@ export class SmartFormComponent implements OnInit, AfterViewInit {
         case FORM_FIELD_VALIDATOR_TYPE.EMAIL:
           validatorsArray.push(Validators.email);
           break;
+        case FORM_FIELD_VALIDATOR_TYPE.MAX_LENGTH:
+          validatorsArray.push(Validators.maxLength(validator.value ?? 0));
+          break;
       }
     });
 
