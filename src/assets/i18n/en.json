@@ -6,6 +6,8 @@
   "smart-form-max-length-error-msg": "Value too long",
   "list-subscribers-confirm-dialog-title": "Delete Subscriber",
   "list-subscribers-confirm-dialog-message": "Are you sure to delete the subscriber",
+  "create-edit-create-succes-message": "¡User created successfully!",
+  "create-edit-edit-succes-message": "¡User updated successfully!",
   "dialog-confirm-button-txt": "Confirm",
   "dialog-cancel-button-txt": "Cancel",
   "create-edit-button-create-txt": "Create",

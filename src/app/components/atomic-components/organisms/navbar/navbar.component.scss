@@ -17,3 +17,10 @@
     padding: vars.$layout-padding-small;
   }
 }
+
+.nav {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  gap: 20px;
+}

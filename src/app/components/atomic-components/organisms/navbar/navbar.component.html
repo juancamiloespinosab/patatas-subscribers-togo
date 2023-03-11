@@ -2,5 +2,8 @@
   <div class="logo-wrapper">
     <app-logo [type]="logoType"></app-logo>
   </div>
-  <app-nav *hiddenIfNotLogged></app-nav>
+  <div class="nav">
+    <app-toggle-lang></app-toggle-lang>
+    <app-nav *hiddenIfNotLogged></app-nav>
+  </div>
 </mat-toolbar>

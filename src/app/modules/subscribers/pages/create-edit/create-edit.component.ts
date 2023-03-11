@@ -3,7 +3,9 @@ import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscriber } from '@core/models';
 import { SubscribersService } from '@core/services/api/subscribers.service';
+import { SnackbarService } from '@core/services/app/snackbar.service';
 import { CreateEditFormComponent } from '@modules/subscribers/components/create-edit-form/create-edit-form.component';
+import { TranslateService } from '@ngx-translate/core';
 
 @Component({
   selector: 'app-create-edit',
@@ -20,7 +22,9 @@ export class CreateEditComponent implements OnInit {
 
   constructor(
     private activatedRoute: ActivatedRoute,
-    private subscribersService: SubscribersService
+    private subscribersService: SubscribersService,
+    private snackbarService: SnackbarService,
+    private translateService: TranslateService
   ) {}
 
   ngOnInit(): void {
@@ -67,7 +71,8 @@ export class CreateEditComponent implements OnInit {
     formValue.Topics = [];
 
     subscribersService.createSubscriber([formValue]).subscribe({
-      next: (res) => console.log(res),
+      next: (res) =>
+        this.onCreateEditSubscriberSuccess('create-edit-create-succes-message'),
       error: (error) => console.log(error),
     });
   }
@@ -91,9 +96,17 @@ export class CreateEditComponent implements OnInit {
     subscribersService
       .updateSubscriber({ Id: subscriberId, ...form.value })
       .subscribe({
-        next: (res) => console.log(res),
+        next: (res) =>
+          this.onCreateEditSubscriberSuccess(
+            'create-edit-create-succes-message'
+          ),
         error: (error) => console.log(error),
       });
+  }
+
+  onCreateEditSubscriberSuccess(i18nKey: string) {
+    const message = this.translateService.instant(i18nKey);
+    this.snackbarService.openSnackBar(message);
   }
 
   patchFormValue(subscriber: Subscriber, form: FormGroup) {

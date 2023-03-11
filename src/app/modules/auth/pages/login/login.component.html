@@ -4,8 +4,20 @@
       <app-logo [type]="logoType"></app-logo>
     </div>
     <app-login-form #loginForm></app-login-form>
-    <button mat-raised-button color="primary" (click)="onClickLoginButton()">
-      {{ "login-button-txt" | translate }}
-    </button>
+    <div>
+      <button
+        class="button"
+        mat-raised-button
+        color="primary"
+        (click)="onClickLoginButton()"
+      >
+        {{ "login-button-txt" | translate }}
+      </button>
+      <mat-progress-bar
+        showIfLoading
+        mode="indeterminate"
+        color="primary"
+      ></mat-progress-bar>
+    </div>
   </section>
 </app-void-navbar-layout>

@@ -1,4 +1,9 @@
 <app-main-layout>
   <h2>{{ "list-title-subscriber-txt" | translate }}</h2>
+  <mat-progress-bar
+    showIfLoading
+    mode="indeterminate"
+    color="primary"
+  ></mat-progress-bar>
   <app-smart-table [data]="data" [config]="config"></app-smart-table>
 </app-main-layout>
