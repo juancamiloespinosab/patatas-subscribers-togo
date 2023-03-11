@@ -1,4 +1,4 @@
-import { Component, OnInit, ViewChild } from '@angular/core';
+import { Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { ActivatedRoute } from '@angular/router';
 import { Subscriber } from '@core/models';
@@ -6,19 +6,22 @@ import { SubscribersService } from '@core/services/api/subscribers.service';
 import { SnackbarService } from '@core/services/app/snackbar.service';
 import { CreateEditFormComponent } from '@modules/subscribers/components/create-edit-form/create-edit-form.component';
 import { TranslateService } from '@ngx-translate/core';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-edit',
   templateUrl: './create-edit.component.html',
   styleUrls: ['./create-edit.component.scss'],
 })
-export class CreateEditComponent implements OnInit {
+export class CreateEditComponent implements OnInit, OnDestroy {
   @ViewChild('createEditForm')
   CreateEditFormComponent!: CreateEditFormComponent;
   createEditForm!: FormGroup;
 
   editMode = false;
   subscriberId: string = '';
+
+  subscriptions: Subscription[] = []; 
 
   constructor(
     private activatedRoute: ActivatedRoute,
@@ -70,11 +73,17 @@ export class CreateEditComponent implements OnInit {
     formValue.Area = '';
     formValue.Topics = [];
 
-    subscribersService.createSubscriber([formValue]).subscribe({
-      next: (res) =>
-        this.onCreateEditSubscriberSuccess('create-edit-create-succes-message'),
-      error: (error) => console.log(error),
-    });
+    const subscription = subscribersService
+      .createSubscriber([formValue])
+      .subscribe({
+        next: (res) =>
+          this.onCreateEditSubscriberSuccess(
+            'create-edit-create-succes-message'
+          ),
+        error: (error) => console.log(error),
+      });
+
+    this.subscriptions.push(subscription);
   }
 
   getSubscriberById(
@@ -82,10 +91,14 @@ export class CreateEditComponent implements OnInit {
     subscribersService: SubscribersService,
     subscriberId: string
   ): void {
-    subscribersService.getSubscriberById(subscriberId).subscribe({
-      next: (subscriber) => this.patchFormValue(subscriber, form),
-      error: (error) => console.log(error),
-    });
+    const subscription = subscribersService
+      .getSubscriberById(subscriberId)
+      .subscribe({
+        next: (subscriber) => this.patchFormValue(subscriber, form),
+        error: (error) => console.log(error),
+      });
+
+    this.subscriptions.push(subscription);
   }
 
   editSubscriber(
@@ -93,7 +106,7 @@ export class CreateEditComponent implements OnInit {
     subscriberId: string,
     subscribersService: SubscribersService
   ): void {
-    subscribersService
+    const subscription = subscribersService
       .updateSubscriber({ Id: subscriberId, ...form.value })
       .subscribe({
         next: (res) =>
@@ -102,6 +115,8 @@ export class CreateEditComponent implements OnInit {
           ),
         error: (error) => console.log(error),
       });
+
+    this.subscriptions.push(subscription);
   }
 
   onCreateEditSubscriberSuccess(i18nKey: string) {
@@ -115,5 +130,11 @@ export class CreateEditComponent implements OnInit {
 
   isInvalidForm(form: FormGroup): boolean {
     return form.invalid;
+  }
+
+  ngOnDestroy(): void {
+    this.subscriptions.forEach((subscription: Subscription) =>
+      subscription.unsubscribe()
+    );
   }
 }

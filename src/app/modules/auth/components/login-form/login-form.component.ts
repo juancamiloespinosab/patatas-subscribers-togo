@@ -1,7 +1,7 @@
 import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { FormField } from '@shared/modules/smart-form/interfaces';
-import { LOGIN_FIELDS } from '@modules/auth/constants/login-fiends.constant';
+import { LOGIN_FIELDS } from '@modules/auth/constants/login-fields.constant';
 
 @Component({
   selector: 'app-login-form',

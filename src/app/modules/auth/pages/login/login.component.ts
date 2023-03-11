@@ -1,4 +1,4 @@
-import { AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import { AfterViewInit, Component, OnDestroy, OnInit, ViewChild } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { Router } from '@angular/router';
 import { LOGO_TYPE } from '@components/enums';
@@ -6,16 +6,19 @@ import { User } from '@core/models';
 import { AccountService } from '@core/services/api/account.service';
 import { AuthService } from '@core/services/app/auth.service';
 import { LoginFormComponent } from '@modules/auth/components/login-form/login-form.component';
+import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-login',
   templateUrl: './login.component.html',
   styleUrls: ['./login.component.scss'],
 })
-export class LoginComponent implements OnInit, AfterViewInit {
+export class LoginComponent implements OnInit, AfterViewInit, OnDestroy {
   @ViewChild('loginForm') loginFormComponent!: LoginFormComponent;
   loginForm!: FormGroup;
   logoType: LOGO_TYPE = LOGO_TYPE.MAIN
+  
+  accountServiceSubscription!: Subscription;
 
   constructor(
     private accountService: AccountService,
@@ -39,7 +42,7 @@ export class LoginComponent implements OnInit, AfterViewInit {
   }
 
   login(form: FormGroup, accountService: AccountService): void {
-    accountService.login(form.value).subscribe({
+    this.accountServiceSubscription = accountService.login(form.value).subscribe({
       next: (user) => this.onSuccessLogin(user),
       error: (error) => this.onErrorLogin(),
     });
@@ -54,5 +57,9 @@ export class LoginComponent implements OnInit, AfterViewInit {
 
   isInvalidForm(form: FormGroup): boolean {
     return form.invalid;
+  }
+
+  ngOnDestroy(): void {
+    this.accountServiceSubscription?.unsubscribe();
   }
 }

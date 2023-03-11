@@ -1,8 +1,7 @@
-import { AfterViewInit, Component, OnInit } from '@angular/core';
+import { Component, OnInit } from '@angular/core';
 import { FormGroup } from '@angular/forms';
 import { SUBSCRIBERS_FIELDS } from '@modules/subscribers/constants';
 import { FormField } from '@shared/modules/smart-form/interfaces';
-import { Subscription } from 'rxjs';
 
 @Component({
   selector: 'app-create-edit-form',

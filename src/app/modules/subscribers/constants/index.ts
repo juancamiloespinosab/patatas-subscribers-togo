@@ -1,1 +1,1 @@
-export * from './subscribers-fiends.constant';
+export * from './subscribers-fields.constant';

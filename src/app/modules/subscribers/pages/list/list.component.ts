@@ -68,9 +68,7 @@ export class ListComponent implements OnInit, OnDestroy {
     },
   };
 
-  querySubscription!: Subscription;
-  actionsSubscription!: Subscription;
-  dialogRefSubscription!: Subscription;
+  subscriptions: Subscription[] = [];
 
   constructor(
     private subscribersService: SubscribersService,
@@ -87,40 +85,52 @@ export class ListComponent implements OnInit, OnDestroy {
   }
 
   initQuerySubscription() {
-    this.querySubscription = this.smartTableService.query$.subscribe(
+    const subscription = this.smartTableService.query$.subscribe(
       (newQuery: GenericQueryParamsRequest) => {
         this.getSubscribers(newQuery);
       }
     );
+
+    this.subscriptions.push(subscription);
   }
 
   initActionsSubscription() {
-    this.actionsSubscription = this.smartTableService.actions$.subscribe(
+    const subscription = this.smartTableService.actions$.subscribe(
       (action: TableAction) => {
         this.handlerAction(action);
       }
     );
+
+    this.subscriptions.push(subscription);
   }
 
   getSubscribers(
     query: GenericQueryParamsRequest = DEFAULT_QUERY_PARAMS_REQUEST
   ) {
-    this.subscribersService.getSubscribers(query).subscribe((data) => {
-      this.data = data.Data;
-      if (this.config.paginator) {
-        this.config.paginator.length = data.Count;
-      }
-    });
+    const subscription = this.subscribersService
+      .getSubscribers(query)
+      .subscribe((data) => {
+        this.data = data.Data;
+        if (this.config.paginator) {
+          this.config.paginator.length = data.Count;
+        }
+      });
+
+    this.subscriptions.push(subscription);
   }
 
   deleteSubscriber(
     subscriberId: string,
     subscribersService: SubscribersService
   ): void {
-    subscribersService.deleteSubscriber(subscriberId).subscribe({
-      next: (res) => this.getSubscribers(),
-      error: (error) => console.log(error),
-    });
+    const subscription = subscribersService
+      .deleteSubscriber(subscriberId)
+      .subscribe({
+        next: (res) => this.getSubscribers(),
+        error: (error) => console.log(error),
+      });
+
+    this.subscriptions.push(subscription);
   }
 
   handlerAction(action: TableAction) {
@@ -146,16 +156,18 @@ export class ListComponent implements OnInit, OnDestroy {
         )}: ${action.data.Name}?`,
       },
     });
-    this.dialogRefSubscription = dialogRef.subscribe((res) => {
+    const subscription = dialogRef.subscribe((res) => {
       if (res === 'Confirm') {
         this.deleteSubscriber(action.data.Id, this.subscribersService);
       }
     });
+
+    this.subscriptions.push(subscription);
   }
 
   ngOnDestroy(): void {
-    this.actionsSubscription?.unsubscribe();
-    this.querySubscription?.unsubscribe();
-    this.dialogRefSubscription?.unsubscribe();
+    this.subscriptions.forEach((subscription: Subscription) =>
+      subscription.unsubscribe()
+    );
   }
 }
