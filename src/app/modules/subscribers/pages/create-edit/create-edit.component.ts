@@ -111,7 +111,7 @@ export class CreateEditComponent implements OnInit, OnDestroy {
       .subscribe({
         next: (res) =>
           this.onCreateEditSubscriberSuccess(
-            'create-edit-create-succes-message'
+            'create-edit-edit-succes-message'
           ),
         error: (error) => console.log(error),
       });
